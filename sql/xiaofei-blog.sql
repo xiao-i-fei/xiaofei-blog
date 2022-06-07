@@ -13,6 +13,9 @@
 
  Date: 05/06/2022 17:30:31
 */
+CREATE DATABASE IF NOT EXISTS `xiaofei-blog` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+USE `xiaofei-blog`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
