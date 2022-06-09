@@ -1,0 +1,18 @@
+# 基础镜像
+FROM  openjdk:8-jre
+# author
+MAINTAINER xiaofei
+
+# 挂载目录
+VOLUME /xiaofei/xiaofei-blog/xiaofei-blog/jar
+# 创建目录
+RUN mkdir -p /xiaofei/xiaofei-blog/xiaofei-blog/jar
+# 指定路径
+WORKDIR /xiaofei/xiaofei-blog/xiaofei-blog/jar
+# 复制jar文件到路径
+COPY ./jar/xiaofei-blog.jar /xiaofei/xiaofei-blog/xiaofei-blog/jar/xiaofei-blog.jar
+
+EXPOSE 8080
+
+# 启动文件服务
+ENTRYPOINT ["java","-jar","/xiaofei/xiaofei-blog/xiaofei-blog/jar/xiaofei-blog.jar"]
