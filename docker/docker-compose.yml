@@ -58,10 +58,11 @@ services:
     restart: always
     ports:
       - "80:80"
-      - "81:81"
+      - "443:443"
     volumes:
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/html:/xiaofei/xiaofei-blog/nginx/html
+      - ./nginx/cert:/xiaofei/xiaofei-blog/nginx/cert
     networks:
       - xiaofei-net
 
