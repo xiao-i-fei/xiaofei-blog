@@ -29,7 +29,7 @@ public class Knife4jConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .protocols(Collections.singleton("http"))
-                .host("http://xiaofei-blog.naste.top")
+                .host("https://www.naste.top")
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.xiaofei.blog.controller"))
@@ -42,7 +42,7 @@ public class Knife4jConfig {
                 .title("小飞博客api文档")
                 .description("springboot+vue开发的博客项目")
                 .contact(new Contact("小飞", "https://github.com/xiao-i-fei", "1903078434@qq.com"))
-                .termsOfServiceUrl("http://xiaofei-blog.naste.top/api")
+                .termsOfServiceUrl("https://www.naste.top/api")
                 .version("1.0")
                 .build();
     }
