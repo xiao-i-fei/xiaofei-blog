@@ -1,0 +1,49 @@
+# 配置mysql数据库
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(iw7HwS6BGDDiRhE4ansH5QEg5sr9/WN0Fs52DFjIpmv5Lc6XwZZn7pcD5M2b8WkqhMiYamWWvx2eZIwtbHEfIbjEgBvo2NU/JN4j5cmypddRSLWS3XeB9BrLu0YCIyZWmSGRojsQbbDmoz99ShJISoX1YBbd776TzPfylo5WJ3I=)
+    username: ENC(Yvl4cKhoa/iDyk6lrHKKnavjmx6rBYTxVW14pCvmYLJrPDu/9cLI2wUbMd9YprC5)
+    password: ENC(mxiw5NTMMnzy9SrDDlQf8c11HHaz5pU07p9LJhIFcUMJWIcqJC2lmVopG9Jlp9sMpZcqWsp1ucA21y5haLy2lmOH1ozHHPMhs5+PUshweuA=)
+    hikari:
+      minimum-idle: 5
+      # 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+      # 连接池最大连接数，默认是10
+      maximum-pool-size: 10
+      # 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      # 连接池名称
+      pool-name: MyHikariCP
+      # 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      # 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  # redis配置
+  redis:
+    host: redis
+    port: ENC(D1AWMDIHSha7Zepl4g6+NSjvaDzZDAdRG/MlN1KmGcl7FRNbGrXiRRnBXHESYe82)
+    password: ENC(ZvizvDu35UyoHy0zOLy+BBSs/iM1QyHdOO8+ISM16ag4GytdqhfoRr0cNSF4E3NUl4sVZhGcvfbX9iFEMN8Vwr/GtKG8WDp49n7JCQsvYLs=)
+  # mq配置
+  rabbitmq:
+    host: rabbitmq
+    port: ENC(Xm4ea8PoAQxks6Lx3+N0Q24Sqdk/SXxRG5busdykjTP5DIP1tefi1cJpQuwjFpl9)
+    username: ENC(2mD/jrMHgCXus57rappV3W6/jOnXotBw6sabvoce/XwhalEcEa2Kyrvnl2chge7H)
+    password: ENC(bLxV+Bfalc+Uaw+uz4w0QEOExvpEgQW9qth+w0jIdH/HPPIfdzijFOibtfXoELFgXQ++M+eFKy3vOpWh3njGGhSQA6T/oS040N+oAz5tvSA=)
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3 #最大重试次数
+          initial-interval: 3000 #重试间隔时间（单位毫秒）
+  # es配置 若搜索模式为mysql可删除
+  elasticsearch:
+    rest:
+      uris: elasticsearch:9200
+
+
+# 网站前台域名（邮件通知用），Web端即时聊天项目实现，可以不需要配置
+website:
+  url: ENC(orp+7MywDX0o/7ZOFGf3I9R1RbqVTzSGqqNP00/aUTXcTkoF/Hwjkf6yC5qs6xLjfW9KBSL+r9x+1M69fYKhZw==)
