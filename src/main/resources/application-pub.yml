@@ -1,0 +1,68 @@
+# 配置端口
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 21600
+
+# 配置mysql数据库
+spring:
+  # 邮箱配置
+  mail:
+    host: smtp.qq.com
+    username: ENC(KOfyqZOmKq9sBJ5mkiv5k+K6PVLzvggjjWF6TxfPXLUX9eGhqY6OUkPqXiPsR3T65T8Lf53i14Ae7nChVMHDmg==) # 邮箱地址，对应host的主机
+    password: ENC(IpYULZJuuGt68k6u5FzOPFEthxkSkIY4O04k/zJJXWqK64GNlLxpOS12w9kA73hZk/7QJIIg74R3llGIf+II0g==) # 此处为邮箱**授权码**，qq独有
+    default-encoding: UTF-8
+    port: 587
+    properties:
+      mail:
+      smtp:
+      auth: true
+      socketFactory:
+      class: javax.net.ssl.SSLSocketFactory
+  # 上传图片大小限制
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+# 配置MybatisPlus
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# 搜索模式 可选 elasticsearch或mysql
+search:
+  mode: mysql
+
+# 上传模式 可选 oss或local  （http://和最后的/一定不能去！！！）
+upload:
+  mode: oss
+  local:
+    # nginx映射本地文件路径，无域名则为 ip:83
+    url: http://nginx/
+    # 本地文件存储路径
+    path:  F:/测试/图片/
+  oss:
+    url: ENC(yUcCkByy2spn+VijprsfAor1AP7d5eCzS2E7KfN+VmkFcAPzcnoExysGNb+hlOq50r4qGwX41TnfCLLOwsswXxSxNXg/INtWt/uEw/RQzC65YoGi63nVS+POMaOo2U3B)
+    endpoint: ENC(BsKFh/7nA0N6RS4XaOz02PxQ1ooa6CZWodEKdeugWIRg9xIH3/AY1cZIgbdJcWSX10+fGTxmALdxyW3kXj6kXQ==)
+    accessKeyId: ENC(YLRpjndB7/4hIgTDVLBW+6JJ4B9z6SGxmYwVc9VyqXxygPt2kXafm7bpMSJZG5q9YC1wlsQq2cey+IZgZ2lxxQ==)
+    accessKeySecret: ENC(rDaAZca6hW0hkkBRebAntWYPh7pLzkJYV6NTt7985oGQfme3OEtpL4s6eP72GiqoM8/7003Gvb5SP8u9G2vGkA==)
+    bucketName: ENC(pWoYxQNitMQ9NZZlRGa3KDC2pKz00ueSZKwDbdm/NxOQvK5FIP8sEmi3Rh6RU6nR)
+    customDomainName: ENC(2e2qiqu88HM6QS5pU++cx2UGUUC/9CQbIUlLAxhKdQAle6V0zki1AeZm2tQYwQjuPPtJ3D4kC9aPiPccXnJxGg==)
+
+#第三方配置信息
+qq:
+  app-id: ENC(tLsUS253uzGy8/3p5ocCg54P1OcSg0IBlE5AnPpGAbvHRVrGq/xLgYQQTC1Yq2HY)
+  check-token-url: https://graph.qq.com/oauth2.0/me?access_token={access_token}
+  user-info-url: https://graph.qq.com/user/get_user_info?openid={openid}&access_token={access_token}&oauth_consumer_key={oauth_consumer_key}
+
+weibo:
+  app-id: ENC(6IzU/5rbaDxSPjubugbNOBxv+pxfZNSh5ym9ASM43OtMCqXcOnhit9D6GZhmv3nA)
+  app-secret: ENC(9vDR27ubR5/D8vidvx8QBjnCNXfqc03Qu9OuokYMtHVgrFzoEp6O2BlEB0cyoSQGdobJQ7DwA/h4FnPfn/h6MKl8hRpUuSk8PV8glH5+ixY=)
+  grant-type: authorization_code
+  redirect-url: ENC(4fJBFuUhRWm4OrEgrUdhnqGOYs/tyCcU6k2nRHb5M90NETfBtawP2ELjmn1u+77evI2huMBmmASmHfDtStHItOUKhklDswJLPuYnSVvJg7Qta+rhjSSHHiTumLF8n+r6)
+  access-token-url: https://api.weibo.com/oauth2/access_token
+  user-info-url: https://api.weibo.com/2/users/show.json?uid={uid}&access_token={access_token}

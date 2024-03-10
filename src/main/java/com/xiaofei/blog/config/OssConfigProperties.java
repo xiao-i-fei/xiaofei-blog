@@ -40,4 +40,9 @@ public class OssConfigProperties {
      */
     private String bucketName;
 
+    /**
+     * 自定义域名
+     */
+    private String customDomainName;
+
 }

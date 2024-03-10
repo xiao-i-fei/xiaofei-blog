@@ -31,7 +31,7 @@ public class OssUploadStrategyImpl extends AbstractUploadStrategyImpl {
 
     @Override
     public String getFileAccessUrl(String filePath) {
-        return ossConfigProperties.getUrl() + filePath;
+        return ossConfigProperties.getCustomDomainName() + filePath;
     }
 
     /**
