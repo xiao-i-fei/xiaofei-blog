@@ -1,8 +1,80 @@
-# 项目部署
+# 博客介绍
 
-![image-20220612141638062](https://cdn.jsdelivr.net/gh/xiao-i-fei/typora/imgs/image-20220612141638062.png)
 
-## MySQL的dockerfile文件
+<p align=center>
+   基于Springboot + Vue 开发的前后端分离博客
+</p>
+[在线地址](#在线地址) | [项目特点](#项目特点) | [技术介绍](#技术介绍) | [运行环境](#运行环境) | [开发环境](#开发环境) | [项目部署](#项目部署)
+
+## 在线地址
+
+**项目链接：** [http://106.53.208.88:8000/](http://106.53.208.88:8000/)
+
+**后台链接：** [http://106.53.208.88:8100/](http://106.53.208.88:8100/)
+
+测试账号：test123，密码：test123，可登入后台查看。
+
+## 项目特点
+
+- 前台参考"Hexo"的"Butterfly"设计，美观简洁，响应式体验好。
+- 后台参考"element-admin"设计，侧边栏，历史标签，面包屑自动生成。
+- 采用Markdown编辑器，写法简单。
+- 评论支持表情输入回复等，样式参考Valine。
+- 添加音乐播放器，支持在线搜索歌曲。
+- 前后端分离部署，适应当前潮流。
+- 接入第三方登录，减少注册成本。
+- 支持发布说说，随时分享趣事。
+- 留言采用弹幕墙，更加炫酷。
+- 支持代码高亮和复制，图片预览，深色模式等功能，提升用户体验。
+- 搜索文章支持高亮分词，响应速度快。
+- 新增文章目录、推荐文章等功能，优化用户体验。
+- 新增在线聊天室，支持撤回、语音输入、统计未读数量等功能。
+- 新增aop注解实现日志管理。  
+- 支持动态权限修改，采用RBAC模型，前端菜单和后台权限实时更新。
+- 后台管理支持修改背景图片，博客配置等信息，操作简单，支持上传相册。
+- 代码支持多种搜索模式（Elasticsearch或MYSQL），支持多种上传模式（OSS或本地），可支持配置。
+- 代码遵循阿里巴巴开发规范，利于开发者学习。
+
+## 技术介绍
+
+**前端：** vue + vuex + vue-router + axios + vuetify + element + echarts
+
+**后端：** SpringBoot + nginx + docker + SpringSecurity + Swagger2 + MyBatisPlus + Mysql + Redis + elasticsearch + RabbitMQ + Websocket
+
+**其他：** 接入QQ，微博第三方登录
+
+## 运行环境
+
+**服务器：** 腾讯云1核2G CentOS7.6
+
+**对象存储：** 阿里云OSS
+
+**最低配置：** 1核2G服务器（关闭ElasticSearch）
+
+## 开发环境
+
+| 开发工具                      | 说明              |
+| ----------------------------- | ----------------- |
+| IDEA                          | Java开发工具IDE   |
+| VSCode                        | Vue开发工具IDE    |
+| Navicat                       | MySQL远程连接工具 |
+| Another Redis Desktop Manager | Redis远程连接工具 |
+| X-shell                       | Linux远程连接工具 |
+| Xftp                          | Linux文件上传工具 |
+
+| 开发环境      | 版本   |
+| ------------- | ------ |
+| JDK           | 1.8    |
+| MySQL         | 8.0.20 |
+| Redis         | 6.0.5  |
+| Elasticsearch | 7.9.2  |
+| RabbitMQ      | 3.8.5  |
+
+
+
+## 项目部署
+
+### MySQL的dockerfile文件
 
 ```yml
 # 基础镜像
@@ -14,7 +86,7 @@ MAINTAINER xiaofei
 ADD ./db/*.sql /docker-entrypoint-initdb.d/
 ```
 
-## nginx配置文件
+### nginx配置文件
 
 ```conf
 events {
@@ -41,7 +113,7 @@ http {
 
     server {
         listen       80;
-        server_name  www.naste.top;
+        server_name  127.0.0.1;
 
         location / {
             root   /xiaofei/xiaofei-blog/nginx/html/blog;
@@ -60,8 +132,8 @@ http {
 
 
     server {
-        listen       80;
-        server_name  blog.naste.top;
+        listen       81;
+        server_name  127.0.0.1;
 
         location / {
             root   /xiaofei/xiaofei-blog/nginx/html/blog;
@@ -79,8 +151,8 @@ http {
     }
 
     server {
-        listen       80;
-        server_name  admin.naste.top;
+        listen       82;
+        server_name  127.0.0.1;
 
         location / {
             root   /xiaofei/xiaofei-blog/nginx/html/admin;
@@ -101,7 +173,7 @@ http {
 
 ```
 
-## 博客dockerfile文件
+### 博客dockerfile文件
 
 ```yml
 # 基础镜像
@@ -124,7 +196,7 @@ EXPOSE 8080
 ENTRYPOINT ["java","-jar","/xiaofei/xiaofei-blog/xiaofei-blog/jar/xiaofei-blog.jar"]
 ```
 
-## docker-compose配置文件
+### docker-compose配置文件
 
 ```yml
 version: "3.8"
@@ -188,13 +260,13 @@ services:
     ports:
       - "80:80"
       - "81:81"
+      - "82:82"
     volumes:
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/html:/xiaofei/xiaofei-blog/nginx/html
     networks:
       - xiaofei-net
 
-  # 一个一个的spring boot项目
   xiaofei-blog:
     container_name: xiaofei-blog
     image: xiaofei-blog:1.0
@@ -216,15 +288,4 @@ services:
       - rabbitmq
 networks:
   xiaofei-net:
-
-#  docker run -d -p 3306:3306 -v /xiaofei/xiaofei-blog/mysql/conf:/etc/mysql/conf.d -v /xiaofei/xiaofei-blog/mysql/data:/var/lib/mysql --restart=always   -e MYSQL_ROOT_PASSWORD="root" --name mysql mysql:8.0.19
-#  docker run -d --hostname my-rabbit --name rabbit --restart=always -p 15672:15672 -p 5672:5672  rabbitmq:3.9-management
-#  docker run -d -p 6379:6379 --restart=always --name docker-redis redis
-#  docker run --name nginx --restart=always -p 80:80 -d -v /xiaofei/xiaofei-blog/nginx/conf/nginx.conf:/etc/nginx/nginx.conf -v /xiaofei/xiaofei-blog/xiaofei-blog-ui:/xiaofei/xiaofei-blog/xiaofei-blog-ui nginx
 ```
-
-## 部署
-
-![image-20220612142023878](https://cdn.jsdelivr.net/gh/xiao-i-fei/typora/imgs/image-20220612142023878.png)
-
-> **项目放入上面图片中指定文件中，按照指定目录来存放，最后执行构建命令`docker-compose up -d`**
